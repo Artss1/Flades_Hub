@@ -16,7 +16,7 @@ notification.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Красный цв
 notification.TextColor3 = Color3.fromRGB(255, 255, 255) -- Белый цвет текста
 notification.TextScaled = true -- Масштабирование текста
 notification.TextWrapped = true -- Перенос текста
-notification.Text = "Ошибка: Произошла непредвиденная ошибка!" -- Текст уведомления
+notification.Text = "UPD:  5-10min" -- Текст уведомления
 notification.Parent = screenGui
 
 -- Убираем уведомление через 5 секунд
