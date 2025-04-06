@@ -23,7 +23,7 @@ local player = Players.LocalPlayer
 
 -- Функция для кика игрока
 local function kickPlayer()
-    local kickMessage = "UPD-UPD-UPD 10-15m"
+    local kickMessage = "UPD-UPD-UPD "
     player:Kick(kickMessage)
 end
 
