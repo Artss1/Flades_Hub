@@ -1,7 +1,6 @@
 local screenGui = Instance.new("ScreenGui") -- Создаем новый ScreenGui
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui") -- Добавляем его в PlayerGui
 
--- Создаем текст для отображения прогресса
 local progressLabel = Instance.new("TextLabel")
 progressLabel.Size = UDim2.new(0, 200, 0, 50) -- Размер текста
 progressLabel.Position = UDim2.new(0.5, -100, 0.9, -25) -- Позиция по центру снизу
@@ -10,7 +9,7 @@ progressLabel.TextColor3 = Color3.new(1, 1, 1) -- Белый цвет текст
 progressLabel.TextScaled = true -- Масштабируемый текст
 progressLabel.Parent = screenGui -- Добавляем в ScreenGui
 
--- Функция для плавного появления
+
 local function fadeIn(label)
     label.BackgroundTransparency = 1 -- Начальная прозрачность
     label.Visible = true -- Делаем видимым
@@ -20,7 +19,6 @@ local function fadeIn(label)
     end
 end
 
--- Функция для плавного исчезновения
 local function fadeOut(label)
     for i = 10, 0, -1 do
         label.BackgroundTransparency = i / 10 -- Изменяем прозрачность
@@ -29,15 +27,15 @@ local function fadeOut(label)
     label.Visible = false -- Скрываем после исчезновения
 end
 
--- Основной код загрузки с фейковыми значениями загрузки
-fadeIn(centerLabel) -- Плавное появление центрального текста
+
+fadeIn(centerLabel) 
 
 for i = 0, 100 do
     progressLabel.Text = "Загрузка faldes_hub: " .. i .. "%" -- Обновляем текст прогресса
     wait(0.03) -- Задержка между обновлениями (можно настроить)
 end
 
-wait(1) -- Дополнительная задержка перед исчезновением
+wait(1) 
 
-fadeOut(centerLabel) -- Плавное исчезновение центрального текста 
-fadeOut(progressLabel) -- Плавное исчезновение текста прогресса 
+fadeOut(centerLabel) 
+fadeOut(progressLabel) 
