@@ -20,5 +20,5 @@ notification.Text = "Wait! UPD Faldes V2 Beta" -- Текст уведомлен�
 notification.Parent = screenGui
 
 -- Убираем уведомление через 5 секунд
-wait(5)
+wait(7)
 screenGui:Destroy()
