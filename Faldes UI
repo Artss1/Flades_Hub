@@ -1,0 +1,130 @@
+-- Faldes UI Library
+local FaldesUI = {}
+FaldesUI.__index = FaldesUI
+
+-- Сервисы
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+-- Создание окна
+function FaldesUI:CreateWindow(title)
+    local window = Instance.new("ScreenGui")
+    window.Name = title
+    window.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.5, 0, 0.5, 0)
+    frame.Position = UDim2.new(0.25, 0, 0.25, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    frame.Parent = window
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Text = title
+    titleLabel.Size = UDim2.new(1, 0, 0.1, 0)
+    titleLabel.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    titleLabel.Parent = frame
+
+    return setmetatable({Window = window, Frame = frame}, self)
+end
+
+-- Создание вкладки
+function FaldesUI:AddTab(window, tabName)
+    local tabButton = Instance.new("TextButton")
+    tabButton.Text = tabName
+    tabButton.Size = UDim2.new(0.1, 0, 0.05, 0)
+    tabButton.Parent = window.Frame
+
+    local tabFrame = Instance.new("Frame")
+    tabFrame.Size = UDim2.new(1, 0, 0.9, 0)
+    tabFrame.Position = UDim2.new(0, 0, 0.1, 0)
+    tabFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    tabFrame.Visible = false
+    tabFrame.Parent = window.Frame
+
+    -- Переключение видимости вкладки при нажатии на кнопку
+    tabButton.MouseButton1Click:Connect(function()
+        for _, child in pairs(window.Frame:GetChildren()) do
+            if child:IsA("Frame") and child ~= tabFrame then
+                child.Visible = false
+            end
+        end
+        tabFrame.Visible = not tabFrame.Visible
+    end)
+
+    return setmetatable({TabButton = tabButton, TabFrame = tabFrame}, self)
+end
+
+-- Добавление кнопки в вкладку
+function FaldesUI:AddButton(tab, buttonName, callback)
+    local button = Instance.new("TextButton")
+    button.Text = buttonName
+    button.Size = UDim2.new(0.2, 0, 0.1, 0)
+    button.Position = UDim2.new(0.4, 0, #tab.TabFrame:GetChildren() * (10 / (tab.TabFrame.AbsoluteSize.Y)) + (10 / (tab.TabFrame.AbsoluteSize.Y)), -10) -- Позиционирование кнопки ниже предыдущих элементов
+    button.Parent = tab.TabFrame
+
+    button.MouseButton1Click:Connect(callback)
+
+    return button
+end
+
+-- Добавление переключателя в вкладку
+function FaldesUI:AddToggle(tab, toggleName, defaultValue, callback)
+	local toggleState= defaultValue 
+	local toggleButton= Instance.new("TextButton") 
+	toggleButton.TextColor3= Color3.fromRGB(255 ,255 ,255 ) 
+	toggleButton.BackgroundColor3= Color3.fromRGB(100 ,100 ,100 ) 
+	toggleButton.Text= toggleName .. ": " .. tostring(toggleState) 
+	toggleButton.Size= UDim2.new(0.2 ,0 ,0.1 ,0) 
+	toggleButton.Position= UDim2.new(0.4 ,0 ,#tab.TabFrame:GetChildren() * (10/ (tab.TabFrame.AbsoluteSize.Y)) + (10/ (tab.TabFrame.AbsoluteSize.Y)) , -10) 
+	toggleButton.Parent= tab.TabFrame 
+
+	toggleButton.MouseButton1Click:Connect(function()
+		toggleState= not toggleState 
+		toggleButton.Text= toggleName .. ": " .. tostring(toggleState) 
+		callback(toggleState) 
+	end)
+
+	return toggleButton 
+end
+
+-- Добавление текстового поля в вкладку
+function FaldesUI:AddTextBox(tab, placeholderText)
+	local textBox = Instance.new("TextBox")
+	textBox.PlaceholderText = placeholderText
+	textBox.Size = UDim2.new(0.4, 0, 0.1, 0)
+	textBox.Position = UDim2.new(0.3, 0, #tab.TabFrame:GetChildren() * (10 / (tab.TabFrame.AbsoluteSize.Y)) + (10 / (tab.TabFrame.AbsoluteSize.Y)), -10) -- Позиционирование текстового поля ниже предыдущих элементов
+	textBox.Parent = tab.TabFrame
+
+	return textBox
+end
+
+-- Уведомление с заданным временем исчезновения
+function FaldesUI:Notify(message, duration)
+	local notificationGui = Instance.new("ScreenGui", Players.LocalPlayer:WaitForChild("PlayerGui"))
+	local notificationFrame = Instance.new("Frame", notificationGui)
+
+	notificationFrame.Size = UDim2.new(0.3, 0, 0.1, 0)
+	notificationFrame.Position = UDim2.new(0.35, 0, -0.15,-20) -- Начальная позиция за пределами экрана
+	notificationFrame.BackgroundColor3= Color3.fromRGB(30 ,30 ,30)
+
+	local notificationLabel= Instance.new("TextLabel", notificationFrame) 
+	notificationLabel.Size= UDim2.new(1 ,-20 ,1 ,-20 ) 
+	notificationLabel.Position= UDim2.new(.5,-10,.5,-10) -- Центрирование текста в уведомлении.
+	notificationLabel.Text= message 
+	notificationLabel.BackgroundTransparency=1 
+
+	local tweenIn= TweenService:Create(notificationFrame,TweenInfo.new(.5),{Position=UDim2.new(.35,.5,.15,.5)}) 
+	local tweenOut= TweenService:Create(notificationFrame,TweenInfo.new(.5),{Position=UDim2.new(.35,.5,-.15,-20)})
+
+	tweenIn:Play() 
+
+	wait(duration or 3) -- Уведомление отображается в течение указанного времени или по умолчанию три секунды.
+
+	tweenOut:Play() 
+
+	wait(.5) -- Ждем завершения анимации выхода 
+
+	notificationGui:Destroy() -- Удаляем уведомление после завершения анимации выхода 
+end
+
+return FaldesUI
