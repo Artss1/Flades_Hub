@@ -205,6 +205,69 @@
 	local chatFrame = O.me.PlayerGui.Chat.Frame
 	me, pccontrol, ldsp, ldsb, ldsbip = nil, nil, nil, nil, nil
 
+--â™¥setingsâ™¥
+	typingAnimation = Instance.new("Animation")
+	typingAnimation.AnimationId = "rbxassetid://18353618958"
+	typingAnimator = O.me.Character:WaitForChild("Humanoid"):WaitForChild("Animator")
+	typingTrack = typingAnimator:LoadAnimation(typingAnimation)
+
+	crouchAnimation = Instance.new("Animation")
+	crouchAnimation.AnimationId = "rbxassetid://6980229055"
+	crouchAnimator = O.me.Character:WaitForChild("Humanoid"):WaitForChild("Animator")
+	crouchTrack = crouchAnimator:LoadAnimation(crouchAnimation)
+
+	throwedAnimation = Instance.new("Animation")
+	throwedAnimation.AnimationId = "rbxassetid://7047322890"
+	throwedAnimator = O.me.Character:WaitForChild("Humanoid"):WaitForChild("Animator")
+	throwedTrack = throwedAnimator:LoadAnimation(throwedAnimation)
+
+
+	O.sunrays = Instance.new("SunRaysEffect", game.Lighting)
+	O.sunrays.Intensity = 0
+	O.sunrays.Spread = 0
+
+	O.bloomeffect = Instance.new("BloomEffect", game.Lighting)
+	O.bloomeffect.Intensity = 0
+	O.bloomeffect.Size = 0
+	O.bloomeffect.Threshold = 0
+
+	O.ccc = Instance.new("ColorCorrectionEffect", S.w.Camera)
+	O.ccc.Enabled = false
+
+	O.hls = Instance.new("Folder", S.w)
+	O.hls.Name = _G.heart.."hls".._G.heart
+
+	O.chars = Instance.new("Folder", S.w)
+	O.chars.Name = _G.heart.."chars".._G.heart
+
+	O.backpacks = Instance.new("Folder", S.w)
+	O.backpacks.Name = _G.heart.."backpacks".._G.heart
+
+	O.pcld = Instance.new("Folder", S.w)
+	O.pcld.Name = _G.heart.."pcld".._G.heart
+
+	O.stoys = Instance.new("Folder", S.w)
+	O.stoys.Name = _G.heart.."stoys".._G.heart
+
+	chatFrame.ChatChannelParentFrame.Visible = true
+	chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
+	
+	pst = true
+
+
+	local function if3(a1, a2, a3, b1, b2, b3)
+		local t = false
+		local l = ""; for _,ll in pairs(a1) do l=l..ll end; a1 = l
+		local l = ""; for _,ll in pairs(a2) do l=l..ll end; a2 = l
+		local l = ""; for _,ll in pairs(a3) do l=l..ll end; a3 = l
+		local l = ""; for _,ll in pairs(b1) do l=l..ll end; b1 = l
+		local l = ""; for _,ll in pairs(b2) do l=l..ll end; b2 = l
+		local l = ""; for _,ll in pairs(b3) do l=l..ll end; b3 = l
+		if if3_help(a1, b2, b3) or a1 ~= b1 then t = true
+		elseif if3_help(a2, b1, b3) or a2 ~= b2 then t = true
+		elseif if3_help(a3, b1, b2) or a3 ~= b3 then t = true end
+		return t
+	end
 
 
 
