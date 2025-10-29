@@ -13,4 +13,9 @@ Game Fling Things And People
 ⣿⡘⠈⣷⠀⠀⠈⠻⣿⣷⣎⠐⠿⢟⣋⣤⣾⣿⣿⣿⡿⠟
 ⣿⣧⠁⢻⡇⠀⠀⠀⠈⠻⣿⣿⣿⣿⣿⣿⠿⠟⠋⠁
 
-NOT WORKED
+--[[
+Faldes снова тут!
+тг - https://t.me/+hgDXqm3iBPM5ZTAy
+скрипт для игры FTAP Faldes_X V2
+]]
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Artss1/Faldes_X/refs/heads/main/FTAP_V2%20Faldes_X'))()
